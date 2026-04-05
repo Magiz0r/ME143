@@ -10,8 +10,7 @@ addVisual(body1, 'box', [0.25 0.25 0.25]);
 addBody(cube,body1,cube.BaseName);
 
 % Use this to change example output
-whichExample = 7;
-
+whichExample = 5;
 
 %------------------------------------------------------------------------------
 % Example 1:
@@ -126,7 +125,7 @@ elseif whichExample == 6
             sin(a) cos(a) 0;
             0 0 1];
 
-  Rsucc =@(a) Rz(a) * Ry(a) * Rx(a);
+  Rsucc = Rz * Ry * Rx;
 
   phiz = pi/4;
   position = [0 0 0]';
@@ -134,39 +133,8 @@ elseif whichExample == 6
   q = [quat(orientation)'; position];
 
   note = [ ...
-    'Example 6: Cube Successively rotated by 45 degree about x, y, z axis \n', ...
+    'Example 6: Cube rotated by 45 deg about x-space axis\n', ...
     'JointPosition: ', sprintf('%.2f ', q')];
-
-elseif whichExample == 7
-
-  % Successive rotations for z->y->x with 45 degree for each one
-  % succ- Successive Rotation Matrix using anonymous function
-  Rx =@(a) [1 0 0;
-            0 cos(a) -sin(a);
-            0 sin(a) cos(a)];
-
-  Ry =@(a) [cos(a) 0 sin(a);
-            0 1 0;
-            -sin(a) 0 cos(a)];
-
-  Rz =@(a) [cos(a) -sin(a) 0;
-            sin(a) cos(a) 0;
-            0 0 1];
-
-  Rsucc =@(a) Rx(a) * Ry(a) * Rz(a);
-
-  phiz = pi/4;
-  position = [0 0 0]';
-  orientation = so3(Rsucc(phiz));
-  q = [quat(orientation)'; position];
-
-  note = [ ...
-    'Example 7: Cube Successively rotated by 45 degree about z, y, x axis \n', ...
-    'JointPosition: ', sprintf('%.2f ', q')];
-
-% end of b.
-% ----------------------------------------------------------------------------
-
 
 
 end
@@ -191,7 +159,6 @@ figure;
   ah.FontSize = 14;
 
 % -----------------------------------------------------------------------------
-
 function axis_style()
   ax = gca;
   axis off;
